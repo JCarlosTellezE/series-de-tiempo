@@ -1,0 +1,36 @@
+## en este ejercicio se va a proponer la pob en mexico
+## con valor minimo 100, max 120, 15 datos que inicie en 2000
+
+pob <- sample(100:120,15, replace = F) # primer argumento es el rango, 2° es el numero de datos
+                                        #3° que si ya dio un valor no de remplazo(F o V)
+pob                                    ## para mirar la muestra
+
+
+## convertirla funcion en serie de tiempo
+pobts <- ts(pob, frequency = 1,start = 2000) ## 1.- datos, 2.- frecuencia, 3.- inicio
+end(pobts)     ## cuando termina la serie
+start(pobts)   ## cuando inicia la serie
+plot(pobts)
+plot(aggregate(pobts)) ## graficar la serie
+
+
+### bajar del inegi la ocupacion de las personas....
+## importar csv
+infor2 <- ts(read.csv(("C:\\Users\\SALA-D13\\Downloads\\IndicadoresENOE_2017-02-08.csv"),header = T),frequency = 4, start = (2005))
+infor2
+plot(infor2)
+
+
+#############################################
+indi3 <- (read.csv(("C:\\Users\\SALA-D13\\Downloads\\st.csv")))
+desoc <- ts (indi3[,1],start = 2005, frequency = 4) # se le puede agregar el , end = 2014
+desoc
+
+ocup <- ts (indi3[,2],start = 2005, frequency = 4) 
+ocup
+
+trabaj <- ts (indi3[,3],start = 2005, frequency = 4) 
+trabaj
+
+critic <- ts (indi3[,4],start = 2005, frequency = 4) 
+critic
