@@ -1,0 +1,14 @@
+################ SERIES DE TIEMPO #####################
+######################TEMPORAL######################### 
+
+temporal <- tempfile()
+download.file ("http://www3.inegi.org.mx/Sistemas/infoenoe/Default_15mas.aspx?s=est&c=27736.xls",temporal)
+files = unzip(temporal, list=TRUE)$Nam-10.xls")) #### abrir diferentes bases de datos
+ web<-read.table("http:\\www3.inegi.org.mx\Sistemas\infoenoe\Default_15mas.aspx?s=est&c=27736?\IndicadoresENOE_2017-02-10.xls")e
+unzip(temporal,files=files[grepl("xls",files)])
+install.packages("foreign")
+require(foreign)
+ocup<- data.frame(read.dbf("IndicadoresENOE_2017-02
+
+
+## no me quedo el ejercicio, pero fue hasta donde llegue :(
