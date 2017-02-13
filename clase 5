@@ -1,0 +1,54 @@
+
+####################13/02/202 clase 5
+
+seriemultiple<- ts.intersect(Profst, ocupst,crecst,desocst) #serie de tiempo multiple
+
+plot(seriemultiple, main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Numero de Personas", col=c("green","red","blue","yellow"),pch=4)
+
+seriemultiple10.12<-window(seriemultiple,start=c(2010,1), end=c(2012,6))
+seriemultiple12.15<-window(seriemultiple,start=c(2012,7), end=c(2015,12))
+
+plot(seriemultiple10.12,main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Numero de Personas", col="violet")
+
+
+########################################################################################
+########################################################################################
+#####################################    EJERCICIO     #################################
+
+## Obtener 4 series de Tiempo cada quien elige como min. 30 datos
+## las series de riempo que importen tienen que tener sustento para compararlas
+
+
+dat<-read.csv("C://Users//SALA-D13//Desktop//datos.csv")
+
+
+s1<-dat[,1]
+s2<-dat[,2]
+s3<-dat[,3]
+s4<-dat[,4]
+s1
+s2
+s3
+s4
+
+
+s1st <- ts(s1, frequency = 4,start = 2005)
+s2st <- ts(s2, frequency = 4,start = 2005)
+s3st <- ts(s3, frequency = 4,start = 2005)
+s4st <- ts(s4, frequency = 4,start = 2005)
+
+plot(cbind(s1st,s2st,s3st,s4st))
+
+sermul<- ts.intersect(s1st,s2st,s3st,s4st) #serie de tiempo multiple
+
+plot(sermul, main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Porcentaje de Personas", col=c("green","red","blue","yellow"),pch=3)
+
+
+sermul05.08<-window(sermul,start=c(2005,1), end=c(2008,3))
+sermul08.12<-window(sermul,start=c(2008,4), end=c(2012,2))
+sermul12.16<-window(sermul,start=c(2012,3), end=c(2016,1))
+
+plot(sermul05.08, main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Porcentaje de Personas", col=c("green","red","blue","yellow"),pch=3)
+plot(sermul08.12, main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Porcentaje de Personas", col=c("red","violet","black","yellow"),pch=2)
+plot(sermul12.16, main ="Serie de Tiempo Multiple", type="overplotted",xlab= "Años", ylab="Porcentaje de Personas", col=c("pink","brown","darkblue","yellow"),pch=4)
+
