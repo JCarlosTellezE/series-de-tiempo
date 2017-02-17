@@ -1,0 +1,46 @@
+##para descomponer una serie de tiempo graficamente se utiliza
+## una funcion que se llama descompose, por lo que primero
+## es importante reconocer la serie de tiempo y despues aplicarle 
+## la funcion graficamente
+
+desoc <- sample(3:8,44 ,replace = T)
+tdesoc<-ts(desoc,frequency = 4,start = 2005)
+plot(decompose(tdesoc))
+plot(tdesoc)
+les<-read.csv("C:/Users/SALA-D13/Desktop/TIIE2015.csv")
+lests<- ts(les,frequency = 52, start = 2015)
+plot(lests)
+plot(decompose(lests))
+
+
+gab<-read.csv("C:/Users/SALA-D13/Desktop/PIB.csv")
+gabts<- ts(gab,frequency = 4, start = 2007)
+plot(gabts)
+plot(decompose(gabts))
+View(gabts)
+summary(gabts)
+names(gabts)
+degabts<- decompose(gabts)
+names(degabts)
+degabts$trend
+degabts$seasonal
+degabts$random
+
+##descomponer la serie de tiempo
+##mandar llamar cada componente de la serie
+##realizar una interpretacion de los datos
+
+lul<-read.csv("C:/Users/SALA-D13/Desktop/tarea2 (1).csv")
+lults<- ts(lul,frequency = 4, start = 2005)
+plot(lults)
+plot(decompose(lults))
+View(lults)
+summary(lults)
+delults<- decompose(lults)
+names(delults)
+delults$trend
+delults$seasonal
+delults$random
+
+##La grafica presenta un incremento en la tasa de desocupacion, a finales del mandato
+## de Calderon, lo cual responde como consecuencia de la crisis del 2008
