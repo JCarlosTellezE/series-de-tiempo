@@ -1,0 +1,30 @@
+
+lul<-read.csv("C://Users//SALA-D13//Desktop//Luki.csv")
+lults<- ts(lul,frequency = 4, start = 2005)
+plot(lults)
+plot(decompose(lults))
+summary(lults)
+delults<- decompose(lults)
+names(delults)
+delults$trend
+delults$seasonal
+delults$random
+lults
+lul
+
+
+i=0
+for (i in 1:44)
+  {
+  x<-i
+  vi<- lul[1+i,]+lul[2+i,]+lul[3+i,]+lul[4+i,]
+  vip<- vi/4
+  i=i+1
+vi
+vip
+c<-vip(1,44,1)
+}
+c
+vi
+
+vip
