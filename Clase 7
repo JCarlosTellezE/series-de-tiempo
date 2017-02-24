@@ -1,0 +1,23 @@
+lul<-read.csv("C://Users//SALA-D13//Desktop//Luki.csv")
+lults<- ts(lul,frequency = 4, start = 2005)
+plot(lults)
+plot(decompose(lults))
+summary(lults)
+delults<- decompose(lults)
+
+delultsmul<- decompose(lults,type = "multiplicative")
+
+names(delults)
+delults$trend
+delults$seasonal
+delults$random
+plot(lults,col="blue",main="tasa de desocupacion trimestral",ylab="tasas", xlab="Años")
+lines(delults$trend,col="brown",ylab="tendencia")
+##
+##
+monthplot(delults$seasonal,main="IVEc",ylab="Ive Trimestral")### otra grafica
+
+"Encontrar una serie de tiempocon tendencia a la alza y la estacionalidad tambien se incrementa
+2) aplicar modelo multiplicativo y Aditivo
+3) graficar tendencia..."
+
