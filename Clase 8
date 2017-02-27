@@ -1,0 +1,83 @@
+##Descomposicion clasica
+## Se utiliza funcion decompose
+##otro tipo de descomposicion es de la estacionariedad
+##tendencia y estacionariedad es la descomposicion
+##por loess la cual esta basada en un algoritmo que permite
+## descomponer las series de tiempo en tres elementos:
+##estacionariedad, tendencia y aleatoriedad, uno de las ventajas de esta descomposicion
+##es el calculo de la estacionstiedad que se obtiene valores de estacionariedad no constantes
+##con el metodo claseico de descomposicion
+
+
+################## Descomposicion clasica
+##################
+#Se  utiliza la fn decompose por ejemplo
+
+lul<-read.csv("C://Users//SALA-D13//Desktop//Luki.csv")
+lults<- ts(lul[1:48,1],frequency = 4, start = 2005)
+plot(decompose(lults))
+delults<- decompose(lults)
+class (lults)
+
+desco<-decompose(lults)
+desco
+tend1<- desco$trend
+plot(tend1,col="red",main="Tendencia de Desocupacion", ylab="Tasas",xlab="Años")
+
+lines(tend2, col="blue")
+
+############################
+############################
+# Descoposicion Tendenci, estacionalidad por loose se utiliza la fn stl()
+
+# Entonces para descomponenla fn utilizamos
+
+desco2<-stl(lults,s.window = "periodic", robust = T)
+
+names(desco2)
+desco2
+desco$trend
+tend2<-desco2$time.series[,2]
+tend2
+
+esta2<- desco2$time.series[,1]
+esta2
+
+install.packages("fpp")
+require(fpp)
+ajus<-seasadj(desco2) ## Ajustamos estacionalidad
+#Pronostico metodo ingenuo
+inge1<- naive(ajus, h=4) # h es el numero de pronosticos a realizar
+x11()
+plot(inge1)
+
+##########################################################################
+##########################################################################
+
+pib<-read.csv("C://Users//SALA-D13//Desktop//PIB México (2).csv")
+pibts<- ts(lul[1:35,1],frequency = 4, start = 2005)
+plot(decompose(lults))
+depibts<- decompose(pibts)
+class (pibts)
+
+
+
+
+
+d<-decompose(pibts)
+d
+t<- d$trend
+plot(t,col="blue",main="Pib", ylab="Tasas",xlab="Años")
+
+lines(t2, col="violet")
+d2<-stl(pibts,s.window = "periodic", robust = T)
+x11()
+names(d2)
+d2
+d$trend
+t2<-d2$time.series[,2]
+t2
+
+e2<- d2$time.series[,1]
+e2
+
