@@ -1,0 +1,35 @@
+##______________________TAREA_____________________##
+## analizar el % del PIB anual del_2000 al_2015
+pib<-read.csv("C://Users//SALA-D13//Desktop//PIBHistorico.csv", header = T)
+pib
+pibts<- ts(pib,frequency = 1, start = 1960)
+plot(pibts)
+plot(decompose(pibts))
+summary(pibts)
+depibts<- decompose(pibts)
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+install.packages("fpp")
+require(fpp)
+
+plot(window(elec,start=1980),ylab="GWH",xlab="Year",main="Australian electricity Production")
+#tendencia, ciclico
+seasonplot(elec,s=12,year.labels = F,main=" COMPORTAMIENTO",ylab="año",xlab="mes",col = rainbow(20),year.labels.left = TRUE,pch=84)
+
+plot(bricksq,ylab="Million Units",xlab="Year",main="Australian Clay Brick Production")
+#ciclo no mucho, tendencia
+seasonplot(bricksq,s=4,year.labels = F,main=" COMPORTAMIENTO",ylab="año",xlab="mes",col = rainbow(20),year.labels.left = TRUE,pch=84)
+
+plot(hsales,main="Sales of new one-family houses, USA", ylab="Total Sales", xlab="Year")
+#no esta ni tendencia, posible ciclo
+seasonplot(hsales,s=12,year.labels = T,main=" COMPORTAMIENTO",ylab="año",xlab="mes",col = rainbow(20),year.labels.left = TRUE,pch=12)
+
+dec<- decompose(bricksq)
+#eliminando tendencia
+sinesta<- bricksq-dec$seasonal
+sintend<- bricksq-dec$trend
+
+plot(sinesta,col="red")
+plot(sintend)
