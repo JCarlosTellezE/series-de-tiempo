@@ -1,0 +1,12 @@
+##______________________TAREA_____________________##
+## analizar el % del PIB anual del_2000 al_2015
+pib<-read.csv("C://Users//Sala-E29//Desktop//PIBmex.csv", header = T)
+pib
+pibts<- ts(pib,frequency = 1, start = 1960)
+plot(pibts)
+plot(decompose(pibts))
+
+
+pib00.15<-window(pibts,start=c(2000,1), end=c(2015,1))
+pib00.15
+plot(pib00.15, main="PIB anual Mexico 2000-2015", ylab="Porcentaje", xlab=" AÑO", col="red")
