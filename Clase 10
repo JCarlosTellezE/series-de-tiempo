@@ -1,0 +1,31 @@
+##______________________TAREA_____________________##
+## analizar el % del PIB anual del_2000 al_2015
+pib<-read.csv("C://Users//SALA-D13//Desktop//PIBHistorico.csv", header = T)
+pib
+pibts<- ts(pib,frequency = 1, start = 1960)
+plot(pibts)
+plot(decompose(pibts))
+
+
+pib00.15<-window(pibts,start=c(2000,1), end=c(2015,1))
+pib00.15
+plot(pib00.15, main="PIB anual Mexico 2000-2015", ylab="Porcentaje", xlab=" AÑO", col="red")
+
+
+
+deso<- data.frame(read.csv("C://Users//SALA-D13//Desktop//PIBHistorico.csv"))
+desot <- ts(deso, frequency = 1,start =1960)
+dectsd<- decompose(desot)
+dectsdmul<- decompose(desot,type = "mult")
+
+plot(dectsd)
+plot(dectsdmul)
+installed.packages("fpp")
+require (fpp)
+eeadj<- seasadj(dectsd)  ### para quitar la estacionalidad
+eeadj
+plot(eeadj)
+lines(pibts, col="red")
+
+sinesta<- desot-dectsd$seasonal
+sinesta
