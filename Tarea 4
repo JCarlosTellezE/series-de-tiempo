@@ -1,0 +1,12 @@
+ dolar<-read.csv("C://Users//Sala-E6//Desktop//Dolar.csv")
+dolar
+dolarts<- ts(dolar,frequency = 12, start = 2015)
+
+Bimbo<-read.csv("C://Users//Sala-E6//Desktop//Bimbo.csv")
+Bimbo
+Bimbots<- ts(Bimbo,frequency = 12, start = 2015)
+
+D<- sd(dolarts)
+B<- sd(Bimbots)
+DB<- cov(dolarts,Bimbots)
+Correl <- BD / (B*D)
