@@ -1,0 +1,22 @@
+
+##........Metodo de la deriva
+## Este metodo consiste en que el pronostico puede incrementar o reducirse dependiendo de los
+## cambios historicos de la ST
+##Funcion en r
+rwf(pibts,h=4,drift=T) ## drift= metodo de la deriva
+plot(rwf(pibts,h=4,drift=T))
+
+### 
+pib1<- meanf(pibts,h=20) ##metodo del promedio
+pib2<- naive(pibts,h=20)
+pib3<- snaive(pibts,h=20)
+pib4<- rwf(pibts,h=20,drift=T)
+x11()
+plot(pib1, main="PIB ")
+lines(pib2$mean,col=5)
+lines(pib3$mean,col=6)
+lines(pib4$mean,col=7)
+legend("topleft", lty=1,col=c(5,6,7,8),legend=c("media","ingenuo","Ingenuo Estacional", "deriva"))
+
+pib1$model
+ 
