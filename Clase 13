@@ -1,0 +1,25 @@
+asa<-t(data.frame(read.csv("C://Users//SALA-D13//Desktop//IndicadoresE.csv",header=T)[7,2:49]))
+View(asa)
+asa
+
+asats<-ts(asa,start=2005,frequency=4)
+asats<- as.numeric(asats)
+asats<-ts(asats,start=2005,frequency=4)
+asats
+
+install.packages("forecast")
+require(forecast)
+
+mod1<- ses(asats,alpha=0.1,initial="simple",h=8) ##Base de datos, ponderador , initial= que modelo esta haciendo, H= # pronosticos
+mod2<- ses(asats,alpha=0.3,initial="simple",h=8)
+mod3<- ses(asats,alpha=0.95,initial="simple",h=8)
+x11()
+plot(mod1,ylab="Asalariados",xlab="Años",main="Asalariados",type="o")
+lines(mod1$fitted,col="brown",type="o")
+lines(mod2$fitted,col="red",type="o")
+lines(mod3$fitted,col="green",type="o")
+lines(mod1$mean,col="brown",type="o")
+lines(mod2$mean,col="red",type="o")
+lines(mod3$mean,col="green",type="o")
+legend("topleft",lty=1,col=c(1,"blue","red","green"),c("data",expression(alpha==.1),expression(alpha==.3),expression(alpha==.95)),pch=64)
+
