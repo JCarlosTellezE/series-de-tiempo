@@ -1,0 +1,39 @@
+## tipos de datos:
+## --cualitativos  
+## --cuantitativos
+## las proyecciones cuantutativas se pueden aplicar cuando:
+## 1)informacion numerica sobre el pasado disponible
+## 2)razonar, suponer qie algunos aspectosde los patrones continuaran en el futuro
+## PRONOSTICO:
+##  predecir con la mayor presicion posible, teniendo en cuenta toda la info disponible,y el conocimiento
+##  de cualquier evento que pueda afectar a las previciones, 
+##  Son parte importante de la toma de decisiones rn los corporativos y empresas, reuieren ser a CP,MP o LP
+##  Estos plazos dependen de los objetivos que se planteen
+##      PRONOSTICOS DE CP:
+##   se utilizan en aspectos como la prediccion del personal de una pempresa, la produccion y el transporte
+##      PRONOSTICOS A MP
+##   sirven para las necesidades futuras de adquirir materias primas, contratar personal o comprar maquinaria y eq
+##      PRONOSTICO  DE LP
+##   se utlizan en una planeacion estrategica, deben tener en cuenta oportunidades de mercado, factores amientales
+##   y recursos internos
+
+
+## las etapas del proyecto se deben planear de forma adecuada. Si se requiren previsiones los elementos de un producto
+## comercial es necesario preguntarse si se necesitaan pronosticos para; productos, materias primas, ventas etc...
+## 
+## los datos de series de tiempo son utilies cuando se esta pronosticando algo que esta cambiando
+## con el tiempo(precios de acciones, tasas laborales, ventas, ganancias anuales)
+## PASOS BASICOS PARA PRONOSTICOS
+## **Definicion del problema::comprension de la forma en que se utilizará
+## **Datos a utilizar:: 1)datos estadisticos 2)exp acumulada
+## **Analisis preliminar:: representacion grafica de los datos para observan patrones, tendencias, estacionalidad...
+## **Elegir y ajustar modelos:: depende de los datos historicos, relacion entre las variables de pronostico
+##   y las explicativas
+## **Uso y Evaluacion de un modelo:: una vez seleccionado el modelo y sus parametros estimados, se utiliza para hacer  
+##   pronosticos
+## 
+## los pronosticos son desconocidos por lo que se pueden pensar como variables aleatorias
+## Cuando se obtiene un pronostico, estamos estimando el metodo del rango de valores posibles de la v.a.
+## se acompaña de un intervalo de presdiccion, comunmente a un 95%
+## 
+## 
