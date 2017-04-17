@@ -1,0 +1,76 @@
+net<-read.csv("C://Users//SALA-D13//Desktop//AccionesNetflix.csv")
+netts<-ts(net,frequency =252,start=2016 )
+require(fpp)
+library("fpp")
+
+
+mod1<-ses(netts,alpha=.2,initial="simple",h=8)
+mod2<-ses(netts,alpha=.4,initial="simple",h=8)
+mod3<-ses(netts,alpha=.6,initial="simple",h=8)
+mod4<-ses(netts,alpha=.8,initial="simple",h=8)
+
+plot(mod1,ylab = "Acciones Netflix 2016-2017 ")
+lines(fitted(mod1),col="green",type="o")
+lines(fitted(mod2),col="red",type="o")
+lines(fitted(mod3),col="blue",type="o")
+lines(fitted(mod4),col="pink",type="o")
+## el ajuste mas cercano a la grafica original es el del modelo 4 con alpha = 0.8
+
+##mod 1
+a1<- netts - mod1$fitted
+mean(abs(a1))####MAE
+sqrt(mean(a1^2))########RMSE
+evalm1<-accuracy(mod1)
+evalm1
+##mod 2
+a2<- netts - mod2$fitted
+mean(abs(a2))####MAE
+sqrt(mean(a2^2))########RMSE
+evalm2<-accuracy(mod2)
+evalm2
+
+##mod 3
+a3<- netts - mod3$fitted
+mean(abs(a3))####MAE
+sqrt(mean(a3^2))########RMSE
+evalm3<-accuracy(mod3)
+evalm3
+##mod 4
+a4<- netts - mod4$fitted
+mean(abs(a4))####MAE
+sqrt(mean(a4^2))########RMSE
+evalm4<-accuracy(mod4)
+evalm4
+aa1<-evalm1$MAE
+names(evalm1)
+vec[1,1:4]<-data.frame(evalm1[,3],evalm2[,3],evalm3[,3],evalm4[,3])
+vec
+
+vec2[2,1:4]<-data.frame(evalm1[,2],evalm2[,2],evalm3[,2],evalm4[,2])
+vec2
+
+
+vecf<-t(data.frame(vec,vec2))
+vecf
+veca<-vecf[1:4,1]
+veca
+vecb<-vecf[5:8,1]
+vecb
+
+mae<-min(veca)#,header=c("1","2","3","4")
+mae
+mae1<-which.min(veca)
+mae1
+
+rmse<-min(vecb)
+rmse
+rmse1<-which.min(vecb)
+rmse1
+
+
+
+library("foreing")
+require(foreign)
+
+#existia una tendencia a la baja al principio del año, despues un ciclo que aumento el valor
+# para 4 meses despues bajar y rapidamente subir, parece mas ener aleatoriedad
