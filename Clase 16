@@ -1,0 +1,145 @@
+net<-read.csv("C://Users//SALA-D13//Desktop//AccionesNetflix.csv")
+netts<-ts(net,frequency =252,start=2016 )
+require(fpp)
+library("fpp")
+
+
+mod1<-ses(netts,alpha=.2,initial="simple",h=8)
+mod2<-ses(netts,alpha=.4,initial="simple",h=8)
+mod3<-ses(netts,alpha=.6,initial="simple",h=8)
+mod4<-ses(netts,alpha=.8,initial="simple",h=8)
+
+plot(mod1,ylab = "Acciones Netflix 2016-2017 ")
+lines(fitted(mod1),col="green",type="o")
+lines(fitted(mod2),col="red",type="o")
+lines(fitted(mod3),col="blue",type="o")
+lines(fitted(mod4),col="pink",type="o")
+## el ajuste mas cercano a la grafica original es el del modelo 4 con alpha = 0.8
+
+##mod 1
+a1<- netts - mod1$fitted
+mean(abs(a1))####MAE
+sqrt(mean(a1^2))########RMSE
+evalm1<-accuracy(mod1)
+evalm1
+##mod 2
+a2<- netts - mod2$fitted
+mean(abs(a2))####MAE
+sqrt(mean(a2^2))########RMSE
+evalm2<-accuracy(mod2)
+evalm2
+
+##mod 3
+a3<- netts - mod3$fitted
+mean(abs(a3))####MAE
+sqrt(mean(a3^2))########RMSE
+evalm3<-accuracy(mod3)
+evalm3
+##mod 4
+a4<- netts - mod4$fitted
+mean(abs(a4))####MAE
+sqrt(mean(a4^2))########RMSE
+evalm4<-accuracy(mod4)
+evalm4
+aa1<-evalm1$MAE
+names(evalm1)
+vec[1,1:4]<-data.frame(evalm1[,3],evalm2[,3],evalm3[,3],evalm4[,3])
+vec
+
+vec2[2,1:4]<-data.frame(evalm1[,2],evalm2[,2],evalm3[,2],evalm4[,2])
+vec2
+
+
+vecf<-t(data.frame(vec,vec2))
+vecf
+veca<-vecf[1:4,1]
+veca
+vecb<-vecf[5:8,1]
+vecb
+
+mae<-min(veca)#,header=c("1","2","3","4")
+mae
+mae1<-which.min(veca)
+mae1
+
+rmse<-min(vecb)
+rmse
+rmse1<-which.min(vecb)
+rmse1
+
+
+
+#existia una tendencia a la baja al principio del año, despues un ciclo que aumento el valor
+# para 4 meses despues bajar y rapidamente subir, parece mas ener aleatoriedad
+
+
+
+
+## ANALISIS DE RESIDUALES ##
+# Lo que se va a analizar de los residuales es que cumplan con las propiedade de los residuales que consisten en:
+# 1) los residuales no esten correlacionados
+# 2)tienen media cero
+# 3)tienen varianza constante
+# 4) los residuales estan normalmente deistribuidos
+
+####
+# para esto en r se tienen que obtener los residuales de cada uno de los 4 metodos con la finalidad de
+# analizarlos y conocer su comportamiento
+
+# para lo anterior primero vamos a graficar nuestos datos con los valores ajustados para despues extraer
+# los residuales de cada modelo y comenzar los analisis correspondiente
+
+x11()
+plot(mod1,ylab = "Acciones Netflix 2016-2017 ")
+lines(fitted(mod1),col="orange")
+lines(fitted(mod2),col="red")
+lines(fitted(mod3),col="blue")
+lines(fitted(mod4),col="pink")
+ 
+
+res1<-residuals(mod1)
+res2<-residuals(mod2)
+res3<-residuals(mod3)
+res4<-residuals(mod4)
+plot(res1,ylab="residuales",xlab="")
+plot(res2,ylab="residuales",xlab="")
+plot(res3,ylab="residuales",xlab="")
+plot(res4,ylab="residuales",xlab="")
+
+hist(res1,nclass="FD",main = "Histograma Residuales")
+hist(res2,nclass="FD",main = "Histograma Residuales")
+hist(res3,nclass="FD",main = "Histograma Residuales")
+hist(res4,nclass="fd",main = "Histograma Residuales")
+
+# PRUEBA DE CORRELACIONES A LOS RESIDUALES
+# para analizarlas autocorrelaciones hemos visto que utilizamos la funcion acf en la cual
+# nos muestra un correlograma que nos permite mostrar la relacion que existe entre los datos
+# ademas de esta prueba que es una prueba grafica se utiliza la prueba de ljungBox, para esta prueba 
+# se utilza la funcion Box, que permite conocer la correlacion que ecuste entre los residuales
+# atrave de una orueba de hipotesis
+# para obtener el correlograma de los residuales analaizados se realiza de la siguiente manera:
+
+acf(res1, main="res1")
+acf(res2, main="res1")
+acf(res3, main="res1")
+acf(res4, main="res1")
+
+# para comprobar la correlacion de los residuales utilizamos una prueba llamada ljung box
+# que nos permite saber con mayor certeza si existe correlacion o no de los residuales
+
+Box.test(res1,lag=10,type="Lj") #lag= numero de desfases
+Box.test(res2,lag=10,type="Lj")
+Box.test(res3,lag=10,type="Lj")
+Box.test(res4,lag=10,type="Lj")
+
+## el estadistico Q deljung Box prueba la hipotesis nula de que las autocorrelaciones de hasta un desfase K
+## son iguales a cero, (es decir, los valores de los datos son aleatorios e independientes hasta un cierto numero 
+## de desfases) si el LQb  es mayor que un valor critico especificado
+## las autocorrelaciones par a cada uno o mas desfases  podrian ser estadisticamente significativos
+## diferenrtes de cero lo que indicaria que los valores no son aleatorio ni indep
+##
+## las etapas q se utilizan en un analisis de residuos son:
+## 1) elegir el modelo a travez de las medidsa mae y rmse
+## 2) realizar las pruebas a los residuales de normalidad, independencia, y varianza constante
+## una vez que la s pruebas son viables ya se puede elegir el modelo como una opcion a considerar para realizar
+## los pronosticos necesarios
