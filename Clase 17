@@ -1,0 +1,61 @@
+gas<-read.csv("C://Users//SALA-D13//Desktop//Gas.csv")
+gasts<-ts(gas[,1],frequency =12,start=2010 )
+plot(gasts)
+gas
+gasts
+83*.8
+
+gas8<-window(gasts,start=c(2012,1), end= c(2015,8))
+gas2<-window(gasts,start=c(2015,9), end= c(2016,11))
+gas8
+install.packages("fpp")
+require(fpp)
+m1<-holt(gas8,alpha=.8,beta = .2,initial = "simple",h=15)
+m1
+m2<-holt(gas8,alpha=.8,beta = .2,initial = "simple",exponential = T,h=15)
+m2
+m3<-holt(gas8,domped=T,h=15)
+m3
+m4<-holt(gas8,domped=T,exponential = T,h=15)
+m4
+names(m1)
+plot(gas2)
+
+x11()
+plot(gasts,main = "Precio Gasolina ")
+lines(gas2,col="violet",type="o")
+lines(m1$mean,col="green",type="o")
+lines(m2$mean,col="red",type="o")
+lines(m3$mean,col="blue",type="o")
+lines(m4$mean,col="pink",type="o")
+
+
+
+dola<-read.csv("C://Users//SALA-D13//Desktop//doa.csv")
+dolats<-ts(dola[,1],frequency =12,start=2010 )
+dola
+
+35*.2
+
+doa8<-window(dolats,start=c(2010,1), end= c(2012,3))
+doa2<-window(dolats,start=c(2012,4), end= c(2012,12))
+doa8
+doa2
+mm1<-holt(doa8,alpha=.8,beta = .2,initial = "simple",h=8)
+mm1
+mm2<-holt(doa8,alpha=.8,beta = .2,initial = "simple",exponential = T,h=8)
+mm2
+mm3<-holt(doa8,domped=T,h=8)
+mm3
+mm4<-holt(doa8,domped=T,exponential = T,h=8)
+mm4
+
+
+x11()
+plot(dolats,main = "Precio Dolar-Peso ")
+lines(doa2,col="violet",type="o")
+lines(mm1$mean,col="green",type="o")
+lines(mm2$mean,col="red",type="o")
+lines(mm3$mean,col="blue",type="o")
+lines(mm4$mean,col="pink",type="o")
+
