@@ -1,0 +1,25 @@
+serr<-read.csv("C://Users//SALA-D13//Desktop//SerieGenerada.csv")
+serrts<-ts(serr,frequency =4,start=2010)
+plot(serrts)
+install.packages("fpp")
+require(fpp)
+
+m1<-hw(serrts,seasonal="additive",h=4)
+m1
+
+m2<-hw(serrts,seasonal="multiplicative",h=4)
+m2
+
+m3<-holt(serrts,alpha=.8,beta = .2,initial = "simple",exponential = T,h=4)
+m3
+names(m2)
+names(m3)
+
+
+x11()
+plot(m1,main = "Pib Simulado ")
+lines(m1$mean,col="violet",type="o")
+lines(m2$mean,col="blue",type="o")
+lines(m3$mean,col="red",type="o")
+
+##el metodo exponencial m3, difiere completamente cuando se tiene una serie con estacionalidad
