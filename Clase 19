@@ -1,0 +1,159 @@
+install.packages("fpp")
+require(fpp)
+
+d<-read.csv("C://Users//SALA-D13//Desktop//D.csv")
+dts<-ts(d,frequency =252,start=c(2010,10))
+plot(dts) ##
+
+ica<-read.csv("C://Users//SALA-D13//Desktop//ICA1.csv")
+icats<-ts(ica,frequency =252,start=2016)
+plot(icats)## estacionario -> exponencial
+
+pib<-read.csv("C://Users//SALA-D13//Desktop//PIB1.csv")
+pibts<-ts(pib,frequency =1,start=2000)
+plot(pibts)## aleatorio multiplicativo amortiguado
+
+bimbo<-read.csv("C://Users//SALA-D13//Desktop//BIMBO1.csv")
+bimbots<-ts(bimbo,frequency =252,start=2016)
+plot(bimbots)## tendencia <- aditivo multiplicativo
+
+pob<-read.csv("C://Users//SALA-D13//Desktop//POB1.csv")
+pobts<-ts(pob,frequency =1,start=1990)
+plot(pobts)## holwinter
+
+##################################### 1 ################################################
+d1<- meanf(dts,h=15) ##metodo del promedio
+d2<- naive(dts,h=15)
+d3<- snaive(dts,h=15)
+d4<- rwf(dts,h=15,drift=T)
+d1
+d2
+d3
+d4
+plot(d1)
+plot(d2)
+plot(d3)##**********
+plot(d4)
+names(d4)
+md1<-holt(dts,alpha = .8,beta = .2, initial = "simple", h=15)
+md1
+md2<-holt(dts,alpha = .8,beta = .2, initial = "simple",exponential = T, h=15)
+md2
+md3<- holt(dts,domped=T, h=15)
+md3
+md4<- holt(dts,domped=T,exponential = T, h=15)
+md4
+md5<-hw(dts,seasonal="additive",h=15)
+md5
+md6<-hw(dts,seasonal="multiplicative",h=15)
+md6
+plot(md1)
+plot(md2)##***************
+plot(md3)
+plot(md4)
+plot(md5)
+plot(md6)##*****************
+
+
+x11()
+plot(d3,main = "PRECIO DOLAR ")
+lines(d3$fitted,col="violet",type="o")
+lines(md4$fitted,col="blue",type="o")
+lines(md6$fitted,col="red",type="o")
+
+x11()
+plot(d3,main = "PRECIO DOLAR ")
+lines(d3$mean,col="violet",type="o")
+lines(md4$mean,col="blue",type="o")
+lines(md6$mean,col="red",type="o")
+####################################  2  #################################################
+ica1<- meanf(icats,h=15) ##metodo del promedio
+ica2<- naive(icats,h=15)
+ica3<- snaive(icats,h=15)
+ica4<- rwf(icats,h=15,drift=T)
+ica1
+ica2
+ica3
+ica4
+plot(ica1)
+plot(ica2)
+plot(ica3)
+plot(ica4)######
+names(ica4)
+mi1<-holt(icats,alpha = .8,beta = .2, initial = "simple", h=15)
+mi1
+mi2<-holt(icats,alpha = .8,beta = .2, initial = "simple",exponential = T, h=15)
+mi2
+mi3<- holt(icats,domped=T, h=15)
+mi3
+mi4<- holt(icats,domped=T,exponential = T, h=15)
+mi4
+mi5<-hw(icats,seasonal="additive",h=15)
+mi5
+mi6<-hw(icats,seasonal="multiplicative",h=15)
+mi6
+plot(mi1)#########
+plot(mi2)
+plot(mi3)#########
+plot(mi4)
+plot(mi5)
+plot(mi6)
+
+
+x11()
+plot(ica4,main = "PRECIO DOLAR ")
+lines(ica4$fitted,col="violet",type="o")
+lines(mi1$fitted,col="blue",type="o")
+lines(mi3$fitted,col="red",type="o")
+
+x11()
+plot(ica4,main = "PRECIO DOLAR ")
+lines(ica4$mean,col="violet",type="o")
+lines(mi1$mean,col="blue",type="o")
+lines(mi3$mean,col="red",type="o")
+
+##################################### 3 ################################################
+p1<- meanf(pibts,h=15) ##metodo del promedio
+p2<- naive(pibts,h=15)
+p3<- snaive(pibts,h=15)
+p4<- rwf(pibts,h=15,drift=T)
+p1
+p2
+p3
+p4
+plot(p1)
+plot(p2)
+plot(p3)
+plot(p4)############
+names(p4)
+mp1<-holt(pts,alpha = .8,beta = .2, initial = "simple", h=15)
+mp1
+mp2<-holt(pts,alpha = .8,beta = .2, initial = "simple",exponential = T, h=15)
+mp2
+mp3<- holt(pts,domped=T, h=15)
+mp3
+mp4<- holt(pts,domped=T,exponential = T, h=15)
+mp4
+mp5<-hw(pts,seasonal="additive",h=15)
+mp5
+mp6<-hw(pts,seasonal="multiplicative",h=15)
+mp6
+plot(mp1)##
+plot(mp2)##
+plot(mp3)
+plot(mp4)
+plot(mp5)
+plot(mp6)
+
+
+x11()
+plot(p4,main = "PRECIO DOLAR ")
+lines(p4$fitted,col="violet",type="o")
+lines(mp1$fitted,col="blue",type="o")
+lines(mp2$fitted,col="red",type="o")
+
+x11()
+plot(p4,main = "PRECIO DOLAR ")
+lines(p4$mean,col="violet",type="o")
+lines(mp1$mean,col="blue",type="o")
+lines(mp2$mean,col="red",type="o")
