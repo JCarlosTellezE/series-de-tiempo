@@ -1,0 +1,11 @@
+ica<-read.csv("C://Users//SALA-D13//Desktop//ica99.csv")
+icats<-ts(ica,frequency =252,start=c(2016,1))
+plot(icats) ##
+
+h<-sample(300:900,252,replace = T)
+acf(icats)
+acf(h)
+
+hts<-ts(h, frequency = 252,start=c(2016,1))
+hts
+plot(hts)
