@@ -1,0 +1,102 @@
+bimbo<-read.csv("C://Users//TEMP//Desktop//bimbo.csv")
+bimbots<-ts(bimbo,frequency =252,start=c(201,05))
+View(bimbo)
+
+
+cemex<-read.csv("C://Users//TEMP//Desktop//cemex.csv")
+cemexts<-ts(cemex,frequency =252,start=c(201,05))
+View(cemex)
+
+## ver si nuestra serie es estacionaria
+## se applica la prueba de la raiz unitaria a travez de la funcion
+## adf.test y esperamos que sea menor a .05
+install.packages("fpp")
+require(foreign)
+require(fpp)
+adf.test(bimbots) 
+
+db<-diff(bimbots)
+adf.test(db)
+acf(db)
+## arima(p,a,q)
+## p= grado arima
+## a= numero de veces diff
+## q= numero de lineas que sobrepasan en el correlograma PROMEDIOS MOVILeS
+
+
+##para determinar el valor de p que se relaciona con los modelos 
+## autorregresivos se utiliza la funcion pacf(), del ultimo diferenciado
+pacf(db)
+## p = 1, xq sobrepasan solo 1 linea en el correlograma
+modbim<-Arima(bimbots,order = c(1,1,2))
+modbim
+## el que tenga menor aicc es mejor modelo
+modbim1<-Arima(bimbots,order = c(2,1,2))
+modbim1
+
+
+resbim<-residuals(modbim)
+Box.test(resbim, lag=12, type = "Ljung-Box")
+## si pvalue es grande, tiene ruido blanco la serie de acuerdo a los residuales...
+
+
+
+mod1<- forecast(resbim,h=12)
+plot(forecast(resbim,h=18),include = 18)
+
+summary(mod1)
+
+#####
+auto.arima(bimbots)
+
+amodbim<-Arima(bimbots,order = c(2,1,1))
+amodbim
+
+aresbim<-residuals(amodbim)
+Box.test(aresbim, lag=12, type = "Ljung-Box")
+
+amod1<- forecast(aresbim,h=12)
+plot(forecast(aresbim,h=18))
+
+
+######################### CEMEX ###################################
+cb<-diff(cemexts)
+adf.test(cb)
+acf(cb)
+
+
+##para determinar el valor de p que se relaciona con los modelos 
+## autorregresivos se utiliza la funcion pacf(), del ultimo diferenciado
+pacf(cb)
+## p = 1, xq sobrepasan solo 1 linea en el correlograma
+modcem<-Arima(cemexts,order = c(0,1,1))
+modcem
+## el que tenga menor aicc es mejor modelo
+modcem1<-Arima(cemexts,order = c(2,1,2))
+modcem1
+
+
+rescem<-residuals(modcem1)
+Box.test(rescem, lag=12, type = "Ljung-Box")
+## si pvalue es grande, tiene ruido blanco la serie de acuerdo a los residuales...
+
+
+
+mod1c<- forecast(rescem,h=12)
+plot(forecast(rescem,h=18),include = 18)
+
+summary(mod1c)
+
+#####
+auto.arima(cemexts)
+
+amodcem<-Arima(bimbots,order = c(0,1,0))
+amodcem
+
+arescem<-residuals(amodcem)
+Box.test(arescem, lag=12, type = "Ljung-Box")
+
+amod1<- forecast(arescem,h=12)
+plot(forecast(arescem,h=18))
+
+## conclusion, el autoarima, queda con un iacc mas alto por lo tanto el modelo propuesto es mejor
