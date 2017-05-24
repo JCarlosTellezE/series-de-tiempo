@@ -1,0 +1,66 @@
+am<-read.csv("C://Users//TEMP//Desktop//amx.csv",header = T)
+amts<-ts(am,frequency =252,start=c(2016,05))
+View(am)
+
+install.packages("fpp")
+require(foreign)
+require(fpp)
+
+zz<-arima(amts, order = c(1,0,0))
+zz
+## en este caso el modelo AR(1) se plantea de la sig manera
+## yt= 13.3425+.9864(yt-1)+ et en este caso fil =.9864
+## y si tuvieramos un modelo autorregresivo de orden 2 se expresa como modelo
+## arima de la siguiente manera:
+
+zz2<-arima(amts, order = c(2,0,0))
+zz2
+## en este caso el modelo AR(2) se plantea de la sig manera
+## yt= 13.2634+.1.0601(yt-1)-.0755(yt-2) + et en este caso el fi1=1.0601 y fi2=-.0755
+##
+zzz2<-Arima(amts, order = c(2,0,0))
+zzz2
+
+
+##ahora bien si tenemos de promedios moviles MA (q) se puede expresar
+## yt= c+theta1(et-1)+....+theta(et-q)+et
+## a travez de un modelo ARIMA se puede representar
+
+yy<- arima(amts,order = c(0,0,1))
+yy
+## que se puede expresar de la siguiente manera
+## yt=12.7409+ .8604(et-1)
+## en este caso theta1=.8605
+## 
+## para un modelo de promedios moviles de orden 2 se usa
+
+yy2<- Arima(amts,order = c(0,0,2))
+yy2
+
+## en este caso se tiene un modelo MA(2) se tiene que
+## yt=12.7481+1.339(et-1)+.7423(et-2)
+## c=12.7481. theta1=1.339 theta2=.7423
+
+##modelo arima con diferenciacion
+##y´t =c+fi1(y´t-1)+...+theta1(et-1)+...
+
+#para un modelo arima con p=2 d=3 q=2 expresa
+
+yy3<- arima (amts, order = c(2,3,2))
+yy3
+
+# se expresa como
+#  y´t= .0716(y´´´t-1).01527(y´´´t-2)-1.9987(et-1)+.9998(et-2)
+
+
+
+########################################
+########################################
+########################################
+ixe<-read.csv("C://Users//TEMP//Desktop//ixe.csv",header = T)
+ixets<-ts(ixe,frequency =252,start=c(2016,05))
+View(ixe)
+
+ixem<- Arima (ixets, order = c(0,3,2))
+ixem
+#yt= -1.9982(et-1)+1(et-2)
